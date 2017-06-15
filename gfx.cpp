@@ -19,13 +19,6 @@ void initialiseScreen(){
 
 void drawSprite(unsigned char x, unsigned char y, unsigned char n){
     for(int i = 0; i < n; i++){
-        if(cpu.V[x] >= 64){
-            cpu.V[x] = 0;
-        }
-        if(cpu.V[y] >= 32){
-            cpu.V[y] = 0;
-        }
-
         unsigned char line = cpu.memory[cpu.I + i];
         for(int j = 0; j < 8; j++){
             unsigned char pixel = line & (0x80 >> j);

@@ -15,12 +15,12 @@ int main ( int argc, char** argv )
     initialiseScreen();
 
     FILE *game = NULL;
-    game = fopen("MAZE","rb");
+    game = fopen("BRIX","rb");
     fread(&cpu.memory[512], sizeof(unsigned char) * (4096 - 512), 1, game);
     fclose(game);
 
-    while(cpu.pc < 4096){
-    executeOpcode();
+    while(cpu.running){
+        executeOpcode();
     }
 
     SDL_Quit();
