@@ -16,8 +16,19 @@ printf("%d\n", cpu.pc);
 
 switch(cpu.opcode & 0xF000){
 
-    case 0x00EE:
-        cpu.pc = cpu.stack[--cpu.sp];
+    case 0x0:
+
+        switch (cpu.opcode & 0x00FF) {
+            case 0x0:
+
+            break;
+
+            case 0x00EE:
+                cpu.sp--;
+                cpu.pc = cpu.stack[cpu.sp];
+            break;
+
+        } //End nested switch
     break;
 
     case 0x1000:
@@ -103,14 +114,8 @@ switch(cpu.opcode & 0xF000){
     break;
 
     default:
-        if((cpu.opcode & nn) == 0x00EE){
-            cpu.sp--;
-            cpu.pc = cpu.stack[cpu.sp];
-        }
-        else{
             printf("opcode not implemented\n");
         cpu.running = 0;
-        }
     break;
     }
 }
