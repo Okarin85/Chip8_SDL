@@ -20,7 +20,7 @@ switch(cpu.opcode & 0xF000){
         switch (cpu.opcode & nn) {
             case 0x0000:
                 printf("The opdcode 0x0000 hasn't been implemented yet\n");
-                cpu.pc += 2;
+            cpu.pc += 2;
             break;
 
             case 0x00E0:
@@ -230,9 +230,9 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0033:
-            cpu.memory[cpu.I]     =  cpu.V[(cpu.opcode & 0x0F00) >> 8] / 100;
-            cpu.memory[cpu.I + 1] = (cpu.V[(cpu.opcode & 0x0F00) >> 8] / 10) % 10;
-            cpu.memory[cpu.I + 2] = (cpu.V[(cpu.opcode & 0x0F00) >> 8] % 100) % 10;
+            cpu.memory[cpu.I]     =  cpu.V[x] / 100;
+            cpu.memory[cpu.I + 1] =  (cpu.V[x] / 10) % 10;
+            cpu.memory[cpu.I + 2] =  (cpu.V[x] % 100) % 10;
         cpu.pc += 2;
         break;
 
