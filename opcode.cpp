@@ -20,12 +20,18 @@ switch(cpu.opcode & 0xF000){
         switch (cpu.opcode & nn) {
             case 0x0000:
                 printf("The opdcode 0x0000 hasn't been implemented yet\n");
+                cpu.pc += 2;
+            break;
+
+            case 0x00E0:
+                resetScreen();
+            cpu.pc += 2;
             break;
 
             case 0x00EE:
                 cpu.sp--;
                 cpu.pc = cpu.stack[cpu.sp];
-                cpu.pc += 2;
+            cpu.pc += 2;
             break;
         }
     break;
@@ -51,7 +57,13 @@ switch(cpu.opcode & 0xF000){
         if(cpu.V[x] != nn){
             cpu.pc += 2;
         }
-        printf("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
+    cpu.pc += 2;
+    break;
+
+    case 0x5000:
+        if(cpu.V[x] == cpu.V[y]){
+            cpu.pc += 2;
+        }
     cpu.pc += 2;
     break;
 
@@ -74,7 +86,9 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0001:
-
+            cpu.V[x] = cpu.V[x] | cpu.V[y];
+        cpu.pc += 2;
+        break;
 
         case 0x0002:
             cpu.V[x] = cpu.V[x] & cpu.V[y];
@@ -108,15 +122,48 @@ switch(cpu.opcode & 0xF000){
         cpu.pc += 2;
         break;
 
+        case 0x0006:
+            cpu.V[15] = 0x1 & cpu.V[(cpu.opcode & x) >> 8];
+            cpu.V[(cpu.opcode & x) >> 8] >>= 1;
+        cpu.pc += 2;
+        break;
+
+        case 0x0007:
+            if(cpu.V[x] < cpu.V[y]){
+                cpu.V[15] = 1;
+            }
+            else{
+                cpu.V[15] = 0;
+            }
+        cpu.pc += 2;
+        break;
+
+        case 0x000E:
+            cpu.V[15] = cpu.V[(cpu.opcode & x) >> 8] >> 7;
+            cpu.V[(cpu.opcode & x) >> 8] <<= 1;
+        cpu.pc += 2;
+        break;
+
         default:
             printf("opcode 0x800? hasn't been implemented yet\n");
         cpu.pc += 2;
         }
     break;
 
+    case 0x9000:
+        if(cpu.V[x] != cpu.V[y]){
+            cpu.pc += 2;
+        }
+    cpu.pc += 2;
+    break;
+
     case 0xA000:
         cpu.I = nnn;
     cpu.pc += 2;
+    break;
+
+    case 0xB000:
+        cpu.pc = cpu.V[0] + nnn;
     break;
 
     case 0xC000:
@@ -158,6 +205,10 @@ switch(cpu.opcode & 0xF000){
         cpu.pc += 2;
         break;
 
+        case 0x000A:
+            //Wait for a key press
+        break;
+
         case 0x0015:
             cpu.delayTimer = cpu.V[x];
         cpu.pc += 2;
@@ -165,6 +216,11 @@ switch(cpu.opcode & 0xF000){
 
         case 0x0018:
             cpu.soundTimer = cpu.V[x];
+        cpu.pc += 2;
+        break;
+
+        case 0x001E:
+            cpu.I = cpu.I + cpu.V[x];
         cpu.pc += 2;
         break;
 
@@ -177,6 +233,14 @@ switch(cpu.opcode & 0xF000){
             cpu.memory[cpu.I]     =  cpu.V[(cpu.opcode & 0x0F00) >> 8] / 100;
             cpu.memory[cpu.I + 1] = (cpu.V[(cpu.opcode & 0x0F00) >> 8] / 10) % 10;
             cpu.memory[cpu.I + 2] = (cpu.V[(cpu.opcode & 0x0F00) >> 8] % 100) % 10;
+        cpu.pc += 2;
+        break;
+
+        case 0x0055:
+            for (int i = 0; i <= x; i++){
+                cpu.memory[cpu.I + i] = cpu.V[i];
+                cpu.I += cpu.V[x] + 1;
+            }
         cpu.pc += 2;
         break;
 
