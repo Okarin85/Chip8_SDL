@@ -16,21 +16,18 @@ printf("%d\n", cpu.pc);
 
 switch(cpu.opcode & 0xF000){
 
-    case 0x0:
-
+    case 0x0000:
         switch (cpu.opcode & nn) {
-            case 0x0:
-
+            case 0x0000:
+                printf("The opdcode 0x0000 hasn't been implemented yet\n");
             break;
 
             case 0x00EE:
-                printf("Hey There asshole !!!!");
                 cpu.sp--;
                 cpu.pc = cpu.stack[cpu.sp];
                 cpu.pc += 2;
             break;
-
-        } //End nested switch
+        }
     break;
 
     case 0x1000:
@@ -89,6 +86,16 @@ switch(cpu.opcode & 0xF000){
     case 0xF000:
         switch(cpu.opcode & nn){
 
+        case 0x0007:
+            cpu.V[x] = cpu.delayTimer;
+        cpu.pc += 2;
+        break;
+
+        case 0x0015:
+            cpu.delayTimer = cpu.V[x];
+        cpu.pc += 2;
+        break;
+
         case 0x0029:
             cpu.I = cpu.V[x] * 5;
             printf("cpu.I : ");
@@ -113,11 +120,11 @@ switch(cpu.opcode & 0xF000){
         default:
             printf("opcode 0xF0?? is not implemented\n");
         }
-    break;
+        break;
 
     default:
-            printf("opcode not implemented\n");
-        cpu.running = 0;
+        printf("opcode not implemented\n");
+    cpu.running = 0;
     break;
     }
 }

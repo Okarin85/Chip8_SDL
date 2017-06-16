@@ -8,6 +8,7 @@ typedef struct{
     unsigned short pc;
     unsigned short stack[16];
     unsigned short sp;
+    unsigned char delayTimer;
 
     unsigned short opcode;
     int running;

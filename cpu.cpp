@@ -12,6 +12,7 @@ void initialiseCpu(){
     }
     cpu.I = 0;
     cpu.pc = 512;
+    cpu.delayTimer = 0;
     cpu.opcode = 0;
     cpu.running = 1;
 }
