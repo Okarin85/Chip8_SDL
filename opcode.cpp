@@ -27,6 +27,7 @@ switch(cpu.opcode & 0xF000){
                 printf("Hey There asshole !!!!");
                 cpu.sp--;
                 cpu.pc = cpu.stack[cpu.sp];
+                cpu.pc += 2;
             break;
 
         } //End nested switch
