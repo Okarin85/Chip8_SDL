@@ -7,6 +7,7 @@ void initialiseScreen(){
 
     for(int i = 0; i < 64; i++){
         for(int j = 0; j < 32; j++){
+            xorPixels[i][j] = 0;
             pixels[i][j] = SDL_CreateRGBSurface(SDL_HWSURFACE, 10, 10, 32, 0, 0, 0, 0);
             SDL_FillRect(pixels[i][j], NULL, SDL_MapRGB(screen->format, 0, 0, 0));
             pos.x = i * 10;
@@ -20,6 +21,7 @@ void initialiseScreen(){
 void resetScreen(){
     for(int i = 0; i < 64; i++){
         for(int j = 0; j < 32; j++){
+            xorPixels[i][j] = 0;
             pixels[i][j] = SDL_CreateRGBSurface(SDL_HWSURFACE, 10, 10, 32, 0, 0, 0, 0);
             SDL_FillRect(pixels[i][j], NULL, SDL_MapRGB(screen->format, 0, 0, 0));
             pos.x = i * 10;
@@ -37,19 +39,24 @@ void drawSprite(unsigned char x, unsigned char y, unsigned char n){
         for(int j = 0; j < 8; j++){
             unsigned char pixel = line & (0x80 >> j);
             if(pixel != 0){
-                pixels[cpu.V[x] + j][cpu.V[y] + i] = SDL_CreateRGBSurface(SDL_HWSURFACE, 10, 10, 32, 0, 0, 0, 0);
-                SDL_FillRect(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, SDL_MapRGB(screen->format, 255, 255, 255));
-                pos.x = (cpu.V[x] + j) * 10;
-                pos.y = (cpu.V[y] + i) * 10;
-                SDL_BlitSurface(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, screen, &pos);
-                cpu.V[15] = 1;
-            }
-            else{
-                pixels[cpu.V[x] + j][cpu.V[y] + i] = SDL_CreateRGBSurface(SDL_HWSURFACE, 10, 10, 32, 0, 0, 0, 0);
-                SDL_FillRect(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-                pos.x = (cpu.V[x] + j) * 10;
-                pos.y = (cpu.V[y] + i) * 10;
-                SDL_BlitSurface(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, screen, &pos);
+                if(xorPixels[cpu.V[x] + j][cpu.V[y] + i] == 0){
+                    pixels[cpu.V[x] + j][cpu.V[y] + i] = SDL_CreateRGBSurface(SDL_HWSURFACE, 10, 10, 32, 0, 0, 0, 0);
+                    SDL_FillRect(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, SDL_MapRGB(screen->format, 255, 255, 255));
+                    pos.x = (cpu.V[x] + j) * 10;
+                    pos.y = (cpu.V[y] + i) * 10;
+                    SDL_BlitSurface(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, screen, &pos);
+                    cpu.V[15] = 1;
+                    xorPixels[cpu.V[x] + j][cpu.V[y] + i] = 1;
+                }
+                else{
+                    pixels[cpu.V[x] + j][cpu.V[y] + i] = SDL_CreateRGBSurface(SDL_HWSURFACE, 10, 10, 32, 0, 0, 0, 0);
+                    SDL_FillRect(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+                    pos.x = (cpu.V[x] + j) * 10;
+                    pos.y = (cpu.V[y] + i) * 10;
+                    SDL_BlitSurface(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, screen, &pos);
+                    cpu.V[15] = 1;
+                    xorPixels[cpu.V[x] + j][cpu.V[y] + i] = 0;
+                }
             }
         }
     }
