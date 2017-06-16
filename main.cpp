@@ -24,6 +24,7 @@ int main ( int argc, char** argv )
         executeOpcode();
         }
         cpu.delayTimer--;
+        cpu.soundTimer--;
     }
 
     SDL_Quit();

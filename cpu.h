@@ -9,6 +9,7 @@ typedef struct{
     unsigned short stack[16];
     unsigned short sp;
     unsigned char delayTimer;
+    unsigned char soundTimer;
 
     unsigned short opcode;
     int running;

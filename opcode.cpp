@@ -47,10 +47,18 @@ switch(cpu.opcode & 0xF000){
     cpu.pc += 2;
     break;
 
+    case 0x4000:
+        if(cpu.V[x] != nn){
+            cpu.pc += 2;
+        }
+        printf("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n");
+    cpu.pc += 2;
+    break;
+
     case 0x6000:
         cpu.V[x] = nn;
-        cpu.pc += 2;
-        break;
+    cpu.pc += 2;
+    break;
 
     case 0x7000:
         cpu.V[x] = (cpu.V[x] += nn) & 0xFF;
@@ -74,10 +82,6 @@ switch(cpu.opcode & 0xF000){
 
     case 0xD000:
         drawSprite(x, y, n);
-        printf("x : ");
-        printf("%d\n", x);
-        printf("y : ");
-        printf("%d\n", y);
         SDL_Flip(screen);
         SDL_Delay(100);
     cpu.pc += 2;
@@ -91,7 +95,7 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x009E:
-            printf("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\n");
+            //has to do with key input
         cpu.pc += 2;
         break;
 
@@ -115,10 +119,13 @@ switch(cpu.opcode & 0xF000){
         cpu.pc += 2;
         break;
 
+        case 0x0018:
+            cpu.soundTimer = cpu.V[x];
+        cpu.pc += 2;
+        break;
+
         case 0x0029:
             cpu.I = cpu.V[x] * 5;
-            printf("cpu.I : ");
-            printf("%d\n", cpu.I);
         cpu.pc += 2;
         break;
 
