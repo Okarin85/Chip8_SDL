@@ -214,7 +214,7 @@ x : 11
 y : 10
 opcode : 00ee
 pc : 804
-opcode : 22fc
+Hey There asshole !!!!opcode : 22fc
 pc : 512
 opcode : 6b20
 pc : 764
@@ -239,6 +239,4 @@ y : 12
 opcode : 7c04
 pc : 772
 opcode : 3c20
-pc : 774
-opcode : 1302
-pc : 7
+pc : 77

@@ -18,12 +18,13 @@ switch(cpu.opcode & 0xF000){
 
     case 0x0:
 
-        switch (cpu.opcode & 0x00FF) {
+        switch (cpu.opcode & nn) {
             case 0x0:
 
             break;
 
             case 0x00EE:
+                printf("Hey There asshole !!!!");
                 cpu.sp--;
                 cpu.pc = cpu.stack[cpu.sp];
             break;
