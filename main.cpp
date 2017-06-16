@@ -20,11 +20,13 @@ int main ( int argc, char** argv )
     fclose(game);
 
     while(cpu.running){
-        for(int i = 0; i < 4; i++){
         executeOpcode();
-        }
+        if(cpu.delayTimer > 0){
         cpu.delayTimer--;
+        }
+        if(cpu.soundTimer > 0){
         cpu.soundTimer--;
+        }
     }
 
     SDL_Quit();

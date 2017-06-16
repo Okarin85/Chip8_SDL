@@ -66,8 +66,52 @@ switch(cpu.opcode & 0xF000){
     break;
 
     case 0x8000:
-        cpu.V[x] = cpu.V[y];
-    cpu.pc += 2;
+        switch(cpu.opcode & n){
+
+        case 0x0000:
+            cpu.V[x] = cpu.V[y];
+        cpu.pc += 2;
+        break;
+
+        case 0x0001:
+
+
+        case 0x0002:
+            cpu.V[x] = cpu.V[x] & cpu.V[y];
+        cpu.pc += 2;
+        break;
+
+        case 0x0003:
+            cpu.V[x] = cpu.V[x] ^ cpu.V[y];
+        cpu.pc += 2;
+        break;
+
+        case 0x0004:
+             cpu.V[x] = cpu.V[x] + cpu.V[y];
+             if(cpu.V[x] > 255){
+             cpu.V[15] = 1;
+             }
+             else{
+                cpu.V[15] = 0;
+             }
+        cpu.pc += 2;
+        break;
+
+        case 0x0005:
+             if(cpu.V[x] > cpu.V[y]){
+             cpu.V[15] = 1;
+             }
+             else{
+                cpu.V[15] = 0;
+             }
+             cpu.V[x] = cpu.V[x] - cpu.V[y];
+        cpu.pc += 2;
+        break;
+
+        default:
+            printf("opcode 0x800? hasn't been implemented yet\n");
+        cpu.pc += 2;
+        }
     break;
 
     case 0xA000:
@@ -83,7 +127,7 @@ switch(cpu.opcode & 0xF000){
     case 0xD000:
         drawSprite(x, y, n);
         SDL_Flip(screen);
-        SDL_Delay(100);
+        SDL_Delay(16);
     cpu.pc += 2;
     break;
 
