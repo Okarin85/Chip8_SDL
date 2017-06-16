@@ -20,7 +20,10 @@ int main ( int argc, char** argv )
     fclose(game);
 
     while(cpu.running){
+        for(int i = 0; i < 4; i++){
         executeOpcode();
+        }
+        cpu.delayTimer--;
     }
 
     SDL_Quit();

@@ -83,6 +83,25 @@ switch(cpu.opcode & 0xF000){
     cpu.pc += 2;
     break;
 
+    case 0xE000:
+        switch(cpu.opcode & nn){
+        case 0x00A1:
+            //has to do with key input
+        cpu.pc += 2;
+        break;
+
+        case 0x009E:
+            printf("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\n");
+        cpu.pc += 2;
+        break;
+
+        default:
+            printf("opcode 0xEx?? hasn't been implemented yet\n");
+        cpu.pc += 2;
+        break;
+        }
+    break;
+
     case 0xF000:
         switch(cpu.opcode & nn){
 
