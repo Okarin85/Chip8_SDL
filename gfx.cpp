@@ -45,7 +45,6 @@ void drawSprite(unsigned char x, unsigned char y, unsigned char n){
                     pos.x = (cpu.V[x] + j) * 10;
                     pos.y = (cpu.V[y] + i) * 10;
                     SDL_BlitSurface(pixels[cpu.V[x] + j][cpu.V[y] + i], NULL, screen, &pos);
-                    cpu.V[15] = 1;
                     xorPixels[cpu.V[x] + j][cpu.V[y] + i] = 1;
                 }
                 else{

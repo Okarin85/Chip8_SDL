@@ -6,6 +6,7 @@ void initialiseCpu(){
     }
     for(int i = 0; i < 16; i++){
         cpu.V[i] = 0;
+        cpu.stack[i] = 0;
     }
     for(int i = 0; i < 80; i++){
         cpu.memory[i] = font[i];

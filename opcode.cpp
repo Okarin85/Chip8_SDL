@@ -12,7 +12,24 @@ nnn  =  cpu.opcode & 0x0FFF;
 printf("opcode : ");
 printf("%04x\n", cpu.opcode);
 printf("pc : ");
-printf("%d\n", cpu.pc);
+printf("%04x\n", cpu.pc);
+printf("I : ");
+printf("%04x\n", cpu.I);
+printf("DealyTimer : ");
+printf("%04x\n", cpu.delayTimer);
+printf("y : ");
+printf("%04x\n", y);
+printf("x : ");
+printf("%04x\n", x);
+printf("\n");
+
+for(int i = 0; i < 16; i++){
+    printf("cpu.V");
+    printf("%01x", i);
+    printf(" : ");
+    printf("%02x\n", cpu.V[i]);
+}
+printf("\n");
 
 switch(cpu.opcode & 0xF000){
 
@@ -101,8 +118,8 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0004:
-             cpu.V[x] = cpu.V[x] + cpu.V[y];
-             if(cpu.V[x] > 255){
+             cpu.V[x] += cpu.V[y];
+             if(cpu.V[x] >= 255){
              cpu.V[15] = 1;
              }
              else{
@@ -112,7 +129,7 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0005:
-             if(cpu.V[x] > cpu.V[y]){
+             if(cpu.V[x] >= cpu.V[y]){
              cpu.V[15] = 1;
              }
              else{
@@ -129,7 +146,7 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0007:
-            if(cpu.V[x] < cpu.V[y]){
+            if(cpu.V[x] <= cpu.V[y]){
                 cpu.V[15] = 1;
             }
             else{
@@ -140,7 +157,7 @@ switch(cpu.opcode & 0xF000){
 
         case 0x000E:
             cpu.V[15] = cpu.V[(cpu.opcode & x) >> 8] >> 7;
-            cpu.V[(cpu.opcode & x) >> 8] <<= 1;
+            cpu.V[(cpu.opcode & x) >> 8] << 1;
         cpu.pc += 2;
         break;
 
@@ -167,7 +184,7 @@ switch(cpu.opcode & 0xF000){
     break;
 
     case 0xC000:
-        cpu.V[x] = rand() & nn;
+        cpu.V[x] = (rand() & nn) & 0xFF;
     cpu.pc += 2;
     break;
 
@@ -220,7 +237,7 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x001E:
-            cpu.I = cpu.I + cpu.V[x];
+            cpu.I += cpu.V[x];
         cpu.pc += 2;
         break;
 
@@ -245,7 +262,7 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0065:
-            for (int i = 0; i < x; i++){
+            for (int i = 0; i <= x; i++){
                 cpu.V[i] = cpu.memory[cpu.I + i];
             }
         cpu.pc += 2;
