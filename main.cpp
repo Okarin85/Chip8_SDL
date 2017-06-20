@@ -17,7 +17,7 @@ int main ( int argc, char** argv )
     initialiseScreen();
 
     FILE *game = NULL;
-    game = fopen("TETRIS","rb");
+    game = fopen("INVADERS","rb");
     fread(&cpu.memory[512], sizeof(unsigned char) * (4096 - 512), 1, game);
     fclose(game);
 
