@@ -7,7 +7,9 @@
 #include <SDL/SDL.h>
 #include "cpu.cpp"
 #include "gfx.cpp"
+#include "keyboard.cpp"
 #include "opcode.cpp"
+
 
 int main ( int argc, char** argv )
 {
@@ -27,6 +29,7 @@ int main ( int argc, char** argv )
         if(cpu.soundTimer > 0){
         cpu.soundTimer--;
         }
+        SDL_Delay(4);
     }
 
     SDL_Quit();

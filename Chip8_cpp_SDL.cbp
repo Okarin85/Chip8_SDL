@@ -55,6 +55,12 @@
 		<Unit filename="gfx.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="keyboard.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="keyboard.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="opcode.cpp">
 			<Option target="&lt;{~None~}&gt;" />

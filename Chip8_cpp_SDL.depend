@@ -1,10 +1,11 @@
 # depslib dependency file v1.0
-1497807681 source:c:\users\sébastien\pictures\chip8_cpp_sdl\main.cpp
+1497995463 source:c:\users\sébastien\pictures\chip8_cpp_sdl\main.cpp
 	<cstdlib>
 	<stdlib.h>
 	<SDL/SDL.h>
 	"cpu.cpp"
 	"gfx.cpp"
+	"keyboard.cpp"
 	"opcode.cpp"
 
 1325742239 c:\program files (x86)\codeblocks\sdl-devel-1.2.15-mingw32\sdl-1.2.15\include\sdl\sdl.h
@@ -202,13 +203,19 @@
 
 1497797201 c:\users\sébastien\pictures\chip8_cpp_sdl\cpu.h
 
-1497811174 c:\users\sébastien\pictures\chip8_cpp_sdl\gfx.cpp
+1497929635 c:\users\sébastien\pictures\chip8_cpp_sdl\gfx.cpp
 	"gfx.h"
 
 1497646937 c:\users\sébastien\pictures\chip8_cpp_sdl\gfx.h
 
-1497810452 c:\users\sébastien\pictures\chip8_cpp_sdl\opcode.cpp
+1497995770 c:\users\sébastien\pictures\chip8_cpp_sdl\opcode.cpp
 	"opcode.h"
 
 1497400035 c:\users\sébastien\pictures\chip8_cpp_sdl\opcode.h
+
+1497995770 c:\users\sébastien\pictures\chip8_cpp_sdl\keyboard.cpp
+	"keyboard.h"
+	"opcode.h"
+
+1497994786 c:\users\sébastien\pictures\chip8_cpp_sdl\keyboard.h
 

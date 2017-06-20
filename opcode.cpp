@@ -191,19 +191,24 @@ switch(cpu.opcode & 0xF000){
     case 0xD000:
         drawSprite(x, y, n);
         SDL_Flip(screen);
-        SDL_Delay(16);
     cpu.pc += 2;
     break;
 
     case 0xE000:
         switch(cpu.opcode & nn){
         case 0x00A1:
-            //has to do with key input
+            inputFetch();
+            if (key[cpu.V[x]] == 0){
+                cpu.pc += 2;
+            }
         cpu.pc += 2;
         break;
 
         case 0x009E:
-            //has to do with key input
+            inputFetch();
+            if (key[cpu.V[x]] != 0){
+                cpu.pc += 2;
+            }
         cpu.pc += 2;
         break;
 
@@ -223,7 +228,13 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x000A:
-            //Wait for a key press
+            waitInput();
+            for (int i = 0; i < 16; i++){
+                if (key[i] != 0){
+                    cpu.V[x] = i;
+                    cpu.pc += 2;
+                }
+            }
         break;
 
         case 0x0015:
