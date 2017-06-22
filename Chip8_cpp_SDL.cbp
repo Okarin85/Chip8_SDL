@@ -40,6 +40,7 @@
 			<Add library="gdi32" />
 			<Add library="winmm" />
 			<Add library="dxguid" />
+			<Add library="../../../../Program Files (x86)/CodeBlocks/MinGW/lib/SDL_mixer.lib" />
 			<Add directory="C:/Program Files (x86)/CodeBlocks/SDL-devel-1.2.15-mingw32/SDL-1.2.15/lib" />
 		</Linker>
 		<Unit filename="cb.bmp" />

@@ -1,7 +1,7 @@
 #include "gfx.h"
 
 void initialiseScreen(){
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
     screen = SDL_SetVideoMode(640, 320, 32, SDL_HWSURFACE);
     SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 127, 127, 127));
 

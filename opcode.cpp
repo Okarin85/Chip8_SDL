@@ -8,7 +8,7 @@ y    = (cpu.opcode & 0x00F0) >> 4;
 n    =  cpu.opcode & 0x000F;
 nn   =  cpu.opcode & 0x00FF;
 nnn  =  cpu.opcode & 0x0FFF;
-
+/*
 printf("opcode : ");
 printf("%04x\n", cpu.opcode);
 printf("pc : ");
@@ -30,7 +30,7 @@ for(int i = 0; i < 16; i++){
     printf("%02x\n", cpu.V[i]);
 }
 printf("\n");
-
+*/
 switch(cpu.opcode & 0xF000){
 
     case 0x0000:
@@ -239,6 +239,7 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0018:
+            printf("opcode that touch the soundtimer");
             cpu.soundTimer = cpu.V[x];
         cpu.pc += 2;
         break;

@@ -4,11 +4,15 @@
     #include <stdlib.h>
 #endif
 
-#include <SDL/SDL.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
+
 #include "cpu.cpp"
 #include "gfx.cpp"
 #include "keyboard.cpp"
 #include "opcode.cpp"
+#include "audio.cpp"
+
 
 
 int main ( int argc, char** argv )
@@ -17,9 +21,14 @@ int main ( int argc, char** argv )
     initialiseScreen();
 
     FILE *game = NULL;
-    game = fopen("TETRIS","rb");
+    game = fopen("BRIX","rb");
     fread(&cpu.memory[512], sizeof(unsigned char) * (4096 - 512), 1, game);
     fclose(game);
+
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+    Mix_Chunk *beep;
+    Mix_AllocateChannels(1);
+    beep = Mix_LoadWAV("beep.wav");
 
     while(cpu.running){
         executeOpcode();
@@ -27,11 +36,15 @@ int main ( int argc, char** argv )
         cpu.delayTimer--;
         }
         if(cpu.soundTimer > 0){
+        printf("%d\n", cpu.soundTimer);
+        Mix_PlayChannel(-1, beep, 0);
         cpu.soundTimer--;
         }
         SDL_Delay(4);
     }
 
+    Mix_FreeChunk(beep);
+    Mix_CloseAudio();
     SDL_Quit();
     return 0;
 }
