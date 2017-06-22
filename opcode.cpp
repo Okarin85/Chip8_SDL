@@ -118,18 +118,18 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0004:
-             cpu.V[x] += cpu.V[y];
              if(cpu.V[x] >= 255){
              cpu.V[15] = 1;
              }
              else{
                 cpu.V[15] = 0;
              }
+             cpu.V[x] += cpu.V[y];
         cpu.pc += 2;
         break;
 
         case 0x0005:
-             if(cpu.V[x] >= cpu.V[y]){
+             if(cpu.V[x] > cpu.V[y]){
              cpu.V[15] = 1;
              }
              else{
@@ -140,24 +140,25 @@ switch(cpu.opcode & 0xF000){
         break;
 
         case 0x0006:
-            cpu.V[15] = 0x1 & cpu.V[(cpu.opcode & x) >> 8];
-            cpu.V[(cpu.opcode & x) >> 8] >>= 1;
+            cpu.V[15] = (cpu.V[x] & 0x1);
+            cpu.V[x] = (cpu.V[x] >> 1);
         cpu.pc += 2;
         break;
 
         case 0x0007:
-            if(cpu.V[x] <= cpu.V[y]){
+            if(cpu.V[x] < cpu.V[y]){
                 cpu.V[15] = 1;
             }
             else{
                 cpu.V[15] = 0;
             }
+            cpu.V[x] -= cpu.V[y];
         cpu.pc += 2;
         break;
 
         case 0x000E:
-            cpu.V[15] = cpu.V[(cpu.opcode & x) >> 8] >> 7;
-            cpu.V[(cpu.opcode & x) >> 8] << 1;
+            cpu.V[15] = cpu.V[x] >> 7;
+            cpu.V[x] = cpu.V[x] << 1;
         cpu.pc += 2;
         break;
 
@@ -184,7 +185,7 @@ switch(cpu.opcode & 0xF000){
     break;
 
     case 0xC000:
-        cpu.V[x] = (rand() & nn) & 0xFF;
+        cpu.V[x] = (rand() & nn);
     cpu.pc += 2;
     break;
 
@@ -229,12 +230,7 @@ switch(cpu.opcode & 0xF000){
 
         case 0x000A:
             waitInput();
-            for (int i = 0; i < 16; i++){
-                if (key[i] != 0){
-                    cpu.V[x] = i;
-                    cpu.pc += 2;
-                }
-            }
+        cpu.pc += 2;
         break;
 
         case 0x0015:
@@ -267,7 +263,6 @@ switch(cpu.opcode & 0xF000){
         case 0x0055:
             for (int i = 0; i <= x; i++){
                 cpu.memory[cpu.I + i] = cpu.V[i];
-                cpu.I += cpu.V[x] + 1;
             }
         cpu.pc += 2;
         break;
